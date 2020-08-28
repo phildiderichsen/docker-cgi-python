@@ -1,31 +1,23 @@
 # Docker file for python simple webservice build
 
 FROM ubuntu:18.04
-MAINTAINER Shohei Mukai
+
+#ENV LC_ALL da_DK.UTF-8
+#ENV LANG da_DK.UTF-8
+#ENV LANGUAGE da_DK.UTF-8
 
 RUN apt-get update
-RUN apt-get -y install apache2
-
-# Python2.7
-RUN apt-get -y install python2.7
-RUN apt-get -y install libmysqlclient-dev
-RUN apt-get -y install vim
-RUN apt-get -y install python-pip
-
-# Python3.6
-RUN apt-get -y install python3.6
-RUN apt-get -y install python3.6-dev python3-distutils
-RUN apt-get -y install wget
-RUN wget https://bootstrap.pypa.io/get-pip.py
-RUN python3.6 get-pip.py
-
-# Python3.7
-RUN apt-get -y install python3.7
-RUN apt-get -y install python3.7-dev
-RUN python3.7 get-pip.py
+RUN apt-get -y install apache2 vim
 
 # Python3.8
-RUN apt-get -y install python3.8
+RUN apt-get -y install python3.5 python-pip
+
+# Copy Python dependencies file to the working directory
+COPY requirements.txt .
+
+# install dependencies
+RUN python3 -m pip install -r requirements.txt
+
 
 # Http settings
 ENV APACHE_RUN_USER www-data
