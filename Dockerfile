@@ -1,23 +1,15 @@
 # Docker file for python simple webservice build
 
-FROM ubuntu:18.04
-
-#ENV LC_ALL da_DK.UTF-8
-#ENV LANG da_DK.UTF-8
-#ENV LANGUAGE da_DK.UTF-8
+FROM ubuntu:20.04
 
 RUN apt-get update
-RUN apt-get -y install apache2 vim
-
-# Python3.8
-RUN apt-get -y install python3.5 python-pip
+RUN DEBIAN_FRONTEND="noninteractive" apt-get -y install apache2 python3-pip vim
 
 # Copy Python dependencies file to the working directory
 COPY requirements.txt .
 
 # install dependencies
-RUN python3 -m pip install -r requirements.txt
-
+RUN pip3 install -r requirements.txt
 
 # Http settings
 ENV APACHE_RUN_USER www-data

@@ -4,6 +4,8 @@
 # Værktøj hvor en bruger kan uploade en korpusfil. Der sendes derefter en mail
 # med en autogenereret kommando til en eller flere administratorer, som så
 # kan indlæse korpusset i Korp.
+# OBS: Vigtigt at line endings er LF (unix) -- 
+# ellers genkendes /usr/bin/python3 ikke ("bad interpreter").
 #------------------------------------------------------------------------------
 import cgi
 import cgitb
@@ -214,6 +216,10 @@ function validate_form() {
 </script>"""
 
 css = """<style>
+body {
+    width: 800px;
+    margin: 30px auto;
+}
 .statusbox {
     background: #bababa;
     border: 1px solid black;
@@ -237,7 +243,7 @@ css = """<style>
 }
 </style>"""
 
-print(u"""
+print("""
 <html>
   <head>
     <meta charset="UTF-8">
@@ -319,7 +325,7 @@ print(u"""
     </form>
     <h3>Info</h3>
     <p>I boksen nedenfor kommer der info om behandlingen af filen, inkl. fejlmeddelelser hvis der er fejl i filen.</p>
-    <textarea cols="100" rows="10">""".encode('utf-8').format(javascript=javascript, css=css, corpus_title=corpus_title, corpus_descr=corpus_descr, checked_paragraph=checked_paragraph, checked_korp=checked_korp, radio_value=markup_choice_checked, extra_pos_attrs=extra_pos_attrs))
+    <textarea cols="100" rows="10">""".format(javascript=javascript, css=css, corpus_title=corpus_title, corpus_descr=corpus_descr, checked_paragraph=checked_paragraph, checked_korp=checked_korp, radio_value=markup_choice_checked, extra_pos_attrs=extra_pos_attrs))
 
 
 # Tag den inputfil brugeren har uploadet, valider den og
